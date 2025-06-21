@@ -1,4 +1,4 @@
-# PROJETO INFOGEST v1.0
+# PROJETO INFOGESTOR v1.0
 
 Sistema de gerenciamento integrado para empresas de informática e assistências técnicas.
 
