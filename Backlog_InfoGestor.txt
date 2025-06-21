@@ -1,0 +1,35 @@
+Bom eu sou técnico em informática mas sou curioso e sempre me perguntei 
+como seria um programa então eu venho pesquisando ah um tempo e usei o 
+Gemini do Google pra me ajudar um programa para minha assistência nova
+ ( saindo de onde trabalho ) coisa simples adicionar novos clientes , 
+sistema de os com numeração e busca , venda junto com estoque para
+ gerenciar e um fluxo de caixa tem tbm uma agenda onde coloco o alerta 
+para me avisar sobre algum compromisso que eu deixe agendado com cliente 
+um Dashboard mais simples e um sistema de contas a pagar e receber pra me
+ ajudar a não esquecer tudo pra uso pessoal , porém criei um sistema web 
+e agora eu consigo compilar mas quando eu abri a página fica branca e assim
+ falando sobre o usuário anônimo não é permitido, travei aqui e o objetivo 
+final é um programa instalável exe mesmo pra que eu possa usar off-line
+
+
+Resumo do que o aplicativo deve fazer
+
+1) Adicionar novos clientes
+2) Sitema de OS com numeração e busca
+3) Venda junto com Estoque para gereciamento de fluxo de caixa
+4) Agenda com alerta para avisos de compromissos agendados com clientes
+5) Um Dashboard simples
+6) Um Sistema de contas a pagar e receber para uso pessoal
+7) Sistema de autenticação de usuário
+8) Software instalável 
+
+
+
+
+
+Continuar a trabalhar no Frontend
+
+Finalizar a página de cadasto e login, mover a div de redes sociais para a esquerda abaixo da logo
+Continuar o frontend para fazer todas as outras telas (crie pastas para estas telas)
+Prosseguir para criar a lógica de negócios e fazr funcionar de fato.
+Outros

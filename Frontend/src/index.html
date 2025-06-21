@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <title>Gestão Assistência Técnica</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Tela de Login (inicial) -->
+  <div id="login-screen" class="auth-screen">
+    <div class="auth-container">
+      <h1><i class="fas fa-laptop-medical"></i> <img style="width: 200px;" src="./assets/1.png" alt="Logo_Software"></h1>
+      <p class="title-login">Bem-vindo!</p>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+      <div class="auth-links"></div>
+        <a href="#" id="show-register">Criar conta</a> |
+        <a href="#" id="show-forgot">Esqueci minha senha</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tela de Registro -->
+  <div id="register-screen" class="auth-screen" style="display: none;">
+    <div class="auth-container">
+      <h1><i class="fas fa-user-plus"></i> Criar Conta</h1>
+      <form id="register-form">
+        <div class="form-group">
+          <label for="register-username">Usuário</label>
+          <input type="text" id="register-username" required>
+        </div>
+        <div class="form-group">
+          <label for="register-email">E-mail</label>
+          <input type="email" id="register-email" required>
+        </div>
+        <div class="form-group">
+          <label for="register-password">Senha</label>
+          <input type="password" id="register-password" required>
+        </div>
+        <button type="submit" class="btn-primary">Registrar</button>
+      </form>
+      <div class="auth-links">
+        <a href="#" id="back-to-login-from-register">Já tenho conta</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tela de Recuperação de Senha -->
+  <div id="forgot-screen" class="auth-screen" style="display: none;">
+    <div class="auth-container">
+      <h1><i class="fas fa-unlock-alt"></i> Recuperar Senha</h1>
+      <form id="forgot-form">
+        <div class="form-group">
+          <label for="forgot-email">E-mail</label>
+          <input type="email" id="forgot-email" required>
+        </div>
+        <button type="submit" class="btn-primary">Enviar recuperação</button>
+      </form>
+      <div class="auth-links">
+        <a href="#" id="back-to-login-from-forgot">Voltar ao login</a>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <!-- Interface Principal (inicialmente oculta) -->
+  <div id="app-container" style="display: none;">
+    <!-- Barra de Navegação -->
+    <nav class="sidebar">
+      <div class="logo">
+        <i class="fas fa-laptop-medical"></i>
+        <span>Gestão Técnica</span>
+      </div>
+      <ul class="nav-menu">
+        <li class="active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+        <li data-section="clientes"><i class="fas fa-users"></i> Clientes</li>
+        <li data-section="ordens-servico"><i class="fas fa-clipboard-list"></i> Ordens de Serviço</li>
+        <li data-section="estoque"><i class="fas fa-boxes"></i> Estoque</li>
+        <li data-section="vendas"><i class="fas fa-cash-register"></i> Vendas</li>
+        <li data-section="agenda"><i class="fas fa-calendar-alt"></i> Agenda</li>
+        <li data-section="financeiro"><i class="fas fa-money-bill-wave"></i> Financeiro</li>
+        <li data-section="configuracoes"><i class="fas fa-cog"></i> Configurações</li>
+      </ul>
+      <div class="user-profile">
+        <img src="./assets/user-default.png" alt="Usuário">
+        <span id="current-username">Usuário</span>
+        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2 id="page-title">Dashboard</h2>
+        <div class="search-box">
+          <input type="text" placeholder="Pesquisar...">
+          <button><i class="fas fa-search"></i></button>
+        </div>
+      </header>
+
+      <!-- Seções de Conteúdo -->
+      <div class="content-section" id="dashboard-section">
+        <!-- Conteúdo do Dashboard -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <h3>OS Abertas</h3>
+            <span id="os-abertas">0</span>
+          </div>
+          <div class="stat-card">
+            <h3>Clientes</h3>
+            <span id="total-clientes">0</span>
+          </div>
+          <div class="stat-card">
+            <h3>Vendas Hoje</h3>
+            <span id="vendas-hoje">R$ 0,00</span>
+          </div>
+          <div class="stat-card">
+            <h3>Contas a Pagar</h3>
+            <span id="contas-pagar">R$ 0,00</span>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="action-btn" data-action="nova-os">
+            <i class="fas fa-plus-circle"></i> Nova OS
+          </button>
+          <button class="action-btn" data-action="nova-venda">
+            <i class="fas fa-cash-register"></i> Nova Venda
+          </button>
+          <button class="action-btn" data-action="novo-cliente">
+            <i class="fas fa-user-plus"></i> Novo Cliente
+          </button>
+        </div>
+
+        <div class="agenda-preview">
+          <h3>Próximos Compromissos</h3>
+          <ul id="proximos-compromissos">
+            <!-- Itens da agenda serão inseridos aqui via JS -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- Outras seções ficariam aqui, inicialmente vazias -->
+      <div class="content-section" id="clientes-section" style="display: none;">
+        <div class="content-section" id="clientes-section" style="display: none;">
+  <div class="client-header">
+    <h2><i class="fas fa-users"></i> Gerenciamento de Clientes</h2>
+    <div class="client-actions">
+      <button id="new-client-btn" class="btn-primary">
+        <i class="fas fa-plus"></i> Novo Cliente
+      </button>
+    </div>
+  </div>
+
+  <!-- Lista de Clientes -->
+  <div class="client-list-container">
+    <div class="list-header">
+      <div class="search-filter">
+        <input type="text" id="client-search" placeholder="Buscar cliente...">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+        <select id="client-filter">
+          <option value="all">Todos os clientes</option>
+          <option value="active">Ativos</option>
+          <option value="inactive">Inativos</option>
+        </select>
+      </div>
+      <div class="list-actions">
+        <button class="action-btn" title="Exportar"><i class="fas fa-file-export"></i></button>
+        <button class="action-btn" title="Imprimir"><i class="fas fa-print"></i></button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table id="clients-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome/Razão Social</th>
+            <th>CNPJ/CPF</th>
+            <th>Contato</th>
+            <th>Cadastro</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dados serão preenchidos via JavaScript -->
+          <tr class="empty-state">
+            <td colspan="7">
+              <i class="fas fa-users-slash"></i>
+              <p>Nenhum cliente cadastrado</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-controls">
+      <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+      <span class="page-info">Página 1 de 1</span>
+      <button class="pagination-btn" disabled><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+
+  <!-- Modal de Cadastro de Cliente -->
+  <div id="client-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-user-plus"></i> <span id="modal-title">Novo Cliente</span></h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      
+      <form id="client-form">
+        <div class="form-columns">
+          <div class="form-column">
+            <h4><i class="fas fa-id-card"></i> Informações Básicas</h4>
+            
+            <div class="form-group">
+              <label for="client-type">Tipo de Cliente</label>
+              <select id="client-type" required>
+                <option value="pf">Pessoa Física</option>
+                <option value="pj">Pessoa Jurídica</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="client-name" id="name-label">Nome Completo</label>
+              <input type="text" id="client-name" required>
+            </div>
+            
+            <div class="form-group" id="cpf-group">
+              <label for="client-cpf">CPF</label>
+              <input type="text" id="client-cpf" data-mask="000.000.000-00">
+            </div>
+            
+            <div class="form-group" id="cnpj-group" style="display: none;">
+              <label for="client-cnpj">CNPJ</label>
+              <input type="text" id="client-cnpj" data-mask="00.000.000/0000-00">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-registration">Número de Registro</label>
+              <input type="text" id="client-registration">
+            </div>
+          </div>
+          
+          <div class="form-column">
+            <h4><i class="fas fa-address-book"></i> Contato</h4>
+            
+            <div class="form-group">
+              <label for="client-email">E-mail</label>
+              <input type="email" id="client-email">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-phone">Telefone</label>
+              <input type="tel" id="client-phone" data-mask="(00) 00000-0000">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-cellphone">Celular</label>
+              <input type="tel" id="client-cellphone" data-mask="(00) 00000-0000">
+            </div>
+          </div>
+          
+          <div class="form-column">
+            <h4><i class="fas fa-map-marker-alt"></i> Endereço</h4>
+            
+            <div class="form-group">
+              <label for="client-cep">CEP</label>
+              <div class="input-with-action">
+                <input type="text" id="client-cep" data-mask="00000-000">
+                <button type="button" id="search-cep" class="action-btn small"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="client-address">Logradouro</label>
+              <input type="text" id="client-address">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-number">Número</label>
+              <input type="text" id="client-number">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-complement">Complemento</label>
+              <input type="text" id="client-complement">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-neighborhood">Bairro</label>
+              <input type="text" id="client-neighborhood">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-city">Cidade</label>
+              <input type="text" id="client-city">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-state">Estado</label>
+              <select id="client-state">
+                <option value="">Selecione</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <!-- Todos os estados brasileiros -->
+                <option value="SP">São Paulo</option>
+                <option value="TO">Tocantins</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-footer">
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="client-active" checked>
+            <label for="client-active">Cliente ativo</label>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn-secondary close-modal">Cancelar</button>
+            <button type="submit" class="btn-primary">Salvar Cliente</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+      </div>
+      <div class="content-section" id="ordens-servico-section" style="display: none;"></div>
+      <div class="content-section" id="estoque-section" style="display: none;"></div>
+      <div class="content-section" id="vendas-section" style="display: none;"></div>
+      <div class="content-section" id="agenda-section" style="display: none;"></div>
+      <div class="content-section" id="financeiro-section" style="display: none;"></div>
+      <div class="content-section" id="configuracoes-section" style="display: none;"></div>
+    </main>
+  </div>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/navigation.js"></script>
+  <script src="./js/database.js"></script>
+  <script src="./js/clients.js"></script>
+  <script src="./js/main.js"></script>
+  
+</body>
+</html>

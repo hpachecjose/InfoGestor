@@ -1,0 +1,21 @@
+{ "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "main": "main.js",
+  "build":{
+    "appId": "com.suaassistencia.app",
+    "win":{
+      "target": "nsis",
+      "icon":"src/"
+    }
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TecDev",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^36.5.0"
+  }
+}
