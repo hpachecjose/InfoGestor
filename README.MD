@@ -3,7 +3,7 @@
 
 Sistema de gerenciamento integrado para empresas de informática e assistências técnicas.
 
-![Descrição da imagem](Frontend\src\assets\2.png)
+![Descrição da imagem](Frontend/src/assets/2.png)
 
 ---
 
