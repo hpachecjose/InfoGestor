@@ -1,4 +1,5 @@
-# PROJETO INFOGESTOR v1.0
+# INFOGESTOR v1.0 
+## Software de gerenciamento de empresa de informática
 
 Sistema de gerenciamento integrado para empresas de informática e assistências técnicas.
 
